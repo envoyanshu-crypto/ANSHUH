@@ -58,13 +58,13 @@ Deno.serve(async (req) => {
     console.log('Calling external web service...')
 
     // Prepare payload based on source type
-    let payload: any = {
+    let body: any = {
       sourceType: sourceType
     };
 
     if (filePath) {
       // For file sources (PDF, audio) or URLs (website, YouTube)
-      payload.filePath = filePath;
+      body.filePath = filePath;
     } else {
       // For text sources, we need to get the content from the database
       const { data: source } = await supabaseClient
@@ -72,11 +72,13 @@ Deno.serve(async (req) => {
         .select('content')
         .eq('notebook_id', notebookId)
         .single();
-      
+
       if (source?.content) {
-        payload.content = source.content.substring(0, 5000); // Limit content size
+        body.content = source.content.substring(0, 5000); // Limit content size
       }
     }
+
+    const payload = { body };
 
     console.log('Sending payload to web service:', payload);
 
