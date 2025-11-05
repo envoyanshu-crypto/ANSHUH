@@ -174,9 +174,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "claude-3-7-sonnet-20250219",
+          "value": "claude-opus-4-1-20250805",
           "mode": "list",
-          "cachedResultName": "Claude Sonnet 3.7"
+          "cachedResultName": "Claude Opus 4.1"
         },
         "options": {}
       },
