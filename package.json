@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "scrape:sendra": "tsx scrapers/sendra-boots-scraper.ts",
     "scrape:sendra:playwright": "tsx scrapers/sendra-boots-playwright.ts",
+    "scrape:complete": "tsx scrapers/sendra-complete-scraper.ts",
     "download:images": "tsx scrapers/download-images.ts"
   },
   "dependencies": {
