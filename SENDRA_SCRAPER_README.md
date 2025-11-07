@@ -13,19 +13,45 @@ npm run scrape:sendra:playwright
 npm run scrape:sendra
 ```
 
-### 2. Use Sample Data
+### 2. Download Product Images
+```bash
+# Download images from scraped data
+npm run download:images
+
+# This creates:
+# - Local image files in data/images/
+# - CLIP-optimized JSON format
+# - Image-to-product mapping
+```
+
+### 3. Use Sample Data
 If the scraper encounters bot protection, use the provided sample data:
 ```
 data/sendra-boots-sample-rag.json  - 8 sample products in RAG format
 data/sendra-boots-sample-rag.txt   - Text format for simple ingestion
+data/sendra-boots-clip.json        - CLIP-optimized format
+data/image-mapping.json            - Image-to-product mapping
 ```
 
-### 3. Ingest into Your RAG System
+### 4. Generate CLIP Embeddings (For Visual Search)
+```bash
+# Python script to generate image + text embeddings
+python3 scrapers/generate-clip-embeddings.py
+
+# Requires: pip install transformers torch pillow
+```
+
+### 5. Ingest into Your RAG System
 See `scrapers/example-rag-ingest.ts` for examples of how to:
 - Generate embeddings using OpenAI
 - Store in Supabase with pgvector
 - Query the vector database
 - Use with LangChain
+
+See `scrapers/CLIP_INTEGRATION_GUIDE.md` for:
+- CLIP visual search setup
+- Multimodal (text + image) search
+- Vector database integration
 
 ## 📁 Project Structure
 
@@ -33,17 +59,27 @@ See `scrapers/example-rag-ingest.ts` for examples of how to:
 ├── scrapers/
 │   ├── sendra-boots-scraper.ts          # Basic axios+cheerio scraper
 │   ├── sendra-boots-playwright.ts       # Advanced Playwright scraper
+│   ├── download-images.ts               # Image downloader
+│   ├── generate-clip-embeddings.py      # CLIP embedding generator
 │   ├── example-rag-ingest.ts            # Example RAG ingestion code
+│   ├── CLIP_INTEGRATION_GUIDE.md        # CLIP visual search guide
 │   └── README.md                        # Detailed scraper documentation
 │
 ├── data/
 │   ├── sendra-boots-sample-rag.json     # Sample products (RAG format)
 │   ├── sendra-boots-sample-rag.txt      # Sample products (text format)
+│   ├── sendra-boots-clip.json           # CLIP-optimized format
+│   ├── image-mapping.json               # Image-to-product mapping
 │   ├── sendra-boots-all.json            # All scraped products (when run)
 │   ├── sendra-boots-{category}.json     # Products by category
 │   ├── sendra-boots-rag.json            # RAG-optimized format
 │   ├── sendra-boots-rag.txt             # Text format
-│   └── scrape-summary.json              # Scraping statistics
+│   ├── scrape-summary.json              # Scraping statistics
+│   └── images/                          # Downloaded product images
+│       └── {product-id}/                # Images organized by product
+│           ├── image-1.jpg
+│           ├── image-2.jpg
+│           └── ...
 ```
 
 ## 📊 Data Format

@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "scrape:sendra": "tsx scrapers/sendra-boots-scraper.ts",
-    "scrape:sendra:playwright": "tsx scrapers/sendra-boots-playwright.ts"
+    "scrape:sendra:playwright": "tsx scrapers/sendra-boots-playwright.ts",
+    "download:images": "tsx scrapers/download-images.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
